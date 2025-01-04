@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amount Verification</title>
+    <!-- Link Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container my-5">
+    <h2 class="text-center">Amount Verification</h2>
+    
+    <!-- Form for user to enter amount -->
+    <form id="amountForm">
+        <div class="mb-3">
+            <label for="amount" class="form-label">Enter Amount</label>
+            <input type="text" class="form-control" id="amount" placeholder="Enter an amount" required>
+        </div>
+
+        <!-- Validation Message -->
+        <div id="validationMessage" class="text-danger mb-3" style="display:none;"></div>
+        
+        <button type="submit" class="btn btn-primary w-100">Verify Amount</button>
+    </form>
+</div>
+
+<!-- Link Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JavaScript for validation -->
+<script>
+    // Get form and elements
+    const form = document.getElementById('amountForm');
+    const amountInput = document.getElementById('amount');
+    const validationMessage = document.getElementById('validationMessage');
+
+    // Event listener for form submission
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent the form from submitting to the server
+        
+        // Get the amount entered by the user
+        const amount = parseFloat(amountInput.value);
+
+        // Reset validation message
+        validationMessage.style.display = 'none';
+        validationMessage.textContent = '';
+
+        // Check if the amount is a valid number and greater than 0
+        if (isNaN(amount) || amount <= 0) {
+            validationMessage.textContent = 'Please enter a valid amount greater than 0.';
+            validationMessage.style.display = 'block';
+        } else if (amount < 100) {
+            validationMessage.textContent = 'The amount must be at least 100.';
+            validationMessage.style.display = 'block';
+        } else {
+            validationMessage.textContent = 'Amount verified successfully!';
+            validationMessage.style.color = 'green';
+            validationMessage.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
